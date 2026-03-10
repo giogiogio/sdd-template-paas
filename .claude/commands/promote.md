@@ -1,29 +1,44 @@
----
-name: 'promote'
-description: 'Promote a validated prototype to production mode. Use when user says "promote", "promuovi", or "passa a produzione"'
----
+# Promote
 
-PROMOTE PROTOTYPE TO PRODUCTION
+Promuovi una feature da Prototype a Production.
 
-Follow these steps:
+## Sintassi
 
-1. Ask user for feature slug (e.g., user-registration)
+```
+/promote {feature-slug}
+```
 
-2. Verify prototype artifacts exist:
-   - {project-root}/_bmad-output/planning-artifacts/prototype/{feature-slug}/1-need.md
-   - {project-root}/_bmad-output/planning-artifacts/prototype/{feature-slug}/2-acceptance.md
-   - {project-root}/_bmad-output/planning-artifacts/prototype/{feature-slug}/4-beta-feedback.md
+## Istruzioni
 
-3. Create production folder:
-   - mkdir -p {project-root}/_bmad-output/planning-artifacts/production/{feature-slug}/
+1. Verifica che esistano gli artifacts prototype:
+   - `_bmad-output/planning-artifacts/prototype/{slug}/1-need.md`
+   - `_bmad-output/planning-artifacts/prototype/{slug}/2-acceptance.md`
+   - `_bmad-output/planning-artifacts/prototype/{slug}/4-beta-feedback.md`
 
-4. Copy and rename validated specs:
-   - 1-need.md -> 0-need-validated.md
-   - 2-acceptance.md -> 0-acceptance-validated.md
-   - 4-beta-feedback.md -> 0-beta-learnings.md
+2. Crea cartella production:
+   - `_bmad-output/planning-artifacts/production/{slug}/`
 
-5. Confirm promotion complete
+3. Copia e rinomina:
+   ```
+   1-need.md          → 0-need-validated.md
+   2-acceptance.md    → 0-acceptance-validated.md
+   4-beta-feedback.md → 0-beta-learnings.md
+   ```
 
-6. Ask: "Vuoi avviare il workflow Production per questa feature?"
+4. Aggiorna status prototype come "promoted"
 
-7. If yes, LOAD the FULL {project-root}/_bmad/bmm/workflows/0-production/workflow.md and follow its directions!
+5. Conferma all'utente:
+   ```
+   ✅ Feature "{slug}" promossa a Production!
+   
+   Specs copiate:
+   - 0-need-validated.md
+   - 0-acceptance-validated.md
+   - 0-beta-learnings.md
+   
+   Prossimo step: /production {slug}
+   ```
+
+## Importante
+
+🗑️ Il codice in `prototype/` NON viene copiato. Verrà riscritto da zero in Production seguendo TDD e Hexagonal Architecture.

@@ -1,36 +1,54 @@
----
-name: 'feature-status'
-description: 'Show current status of a feature. Use when user says "status", "stato feature", or "dove siamo"'
----
+# Feature Status
 
-SHOW FEATURE STATUS
+Mostra lo stato di una feature in sviluppo.
 
-1. Ask user for feature slug if not provided
+## Sintassi
 
-2. Check both folders:
-   - {project-root}/_bmad-output/planning-artifacts/prototype/{feature-slug}/
-   - {project-root}/_bmad-output/planning-artifacts/production/{feature-slug}/
+```
+/feature-status {feature-slug}
+```
 
-3. List all artifacts found with their status:
-   - File exists: ✅
-   - File missing: ❌
+Senza argomento: mostra tutte le feature attive.
 
-4. Determine current mode (prototype or production)
+## Istruzioni
 
-5. Identify current step based on existing artifacts
+1. Cerca in `_bmad-output/planning-artifacts/`:
+   - `prototype/{slug}/`
+   - `production/{slug}/`
 
-6. Show summary:
-   ```
-   Feature: {feature-slug}
-   Mode: {prototype|production}
-   Current Step: {n}
-   
-   Artifacts:
-   - 1-need.md: ✅/❌
-   - 2-acceptance.md: ✅/❌
-   - ...
-   
-   Next Action: {what to do next}
-   ```
+2. Leggi `status.json` se presente
 
-7. Offer to resume: "Vuoi continuare da dove eri rimasto?"
+3. Analizza gli artifacts presenti
+
+4. Mostra report:
+
+```
+Feature: {slug}
+Mode: {prototype|production}
+Current Step: {n} ({step-name})
+
+Artifacts:
+✅ 1-need.md (approved)
+✅ 2-acceptance.md (approved)
+⏳ 3-prototype (in progress)
+⬜ 4-beta-feedback (pending)
+
+Last Updated: {date}
+```
+
+## Lista Feature
+
+Se chiamato senza argomenti, elenca tutte le feature:
+
+```
+Active Features:
+
+PROTOTYPE:
+- user-registration (step 3/4)
+- product-catalog (step 2/4)
+
+PRODUCTION:
+- checkout-flow (step 5/9)
+
+Use /feature-status {slug} for details.
+```
