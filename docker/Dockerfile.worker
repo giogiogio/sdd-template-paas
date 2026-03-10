@@ -1,0 +1,37 @@
+# Dockerfile.worker - Background Jobs
+# Used for Symfony Messenger consumer
+
+FROM dunglas/frankenphp:latest-php8.4-alpine
+
+# Install PHP extensions
+RUN install-php-extensions \
+    pdo_pgsql \
+    intl \
+    opcache \
+    zip \
+    apcu \
+    redis
+
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Set working directory
+WORKDIR /app
+
+# Copy composer files first
+COPY composer.json composer.lock ./
+
+# Install dependencies
+RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist
+
+# Copy application code
+COPY . .
+
+# Generate optimized autoloader
+RUN composer dump-autoload --optimize --no-dev
+
+# Environment
+ENV APP_ENV=prod
+
+# Run Messenger consumer
+CMD ["php", "bin/console", "messenger:consume", "async", "--time-limit=3600", "--memory-limit=256M", "-vv"]
