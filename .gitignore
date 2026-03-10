@@ -1,0 +1,36 @@
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+/vendor/
+/node_modules/
+
+# Symfony
+/backend/var/
+/backend/vendor/
+
+# Frontend
+/frontend/node_modules/
+/frontend/dist/
+
+# Prototype
+/prototype/var/
+/prototype/vendor/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Docker local data
+docker/dev/data/
+docker/prototype/data/
+
+# BMAD memory (local AI context)
+_bmad/_memory/
+
+# Build
+*.cache

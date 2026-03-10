@@ -2,7 +2,7 @@
   "$schema": "https://railway.app/railway.schema.json",
   "build": {
     "builder": "DOCKERFILE",
-    "dockerfilePath": "docker/production/Dockerfile"
+    "dockerfilePath": "docker/Dockerfile"
   },
   "deploy": {
     "startCommand": "php bin/console doctrine:migrations:migrate --no-interaction && frankenphp run --config /etc/caddy/Caddyfile",
