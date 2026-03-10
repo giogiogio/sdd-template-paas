@@ -9,7 +9,7 @@ services:
     name: api
     runtime: docker
     repo: https://github.com/YOUR_USER/YOUR_REPO
-    dockerfilePath: ./docker/production/Dockerfile
+    dockerfilePath: ./docker/Dockerfile
     dockerContext: ./backend
     region: frankfurt
     plan: starter
@@ -74,7 +74,7 @@ services:
     name: worker
     runtime: docker
     repo: https://github.com/YOUR_USER/YOUR_REPO
-    dockerfilePath: ./docker/production/Dockerfile.worker
+    dockerfilePath: ./docker/Dockerfile.worker
     dockerContext: ./backend
     region: frankfurt
     plan: starter
